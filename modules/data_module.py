@@ -9,7 +9,7 @@ def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
     """
     data = pd.read_csv(data_link_or_path, delimiter=",")
     
-    if(download):
+    if(save_to_file):
         data.to_csv(save_path)
         
     return data
