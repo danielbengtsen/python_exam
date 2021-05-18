@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.figure as Figure
 
 def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
     """
@@ -15,37 +16,43 @@ def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
         
     return data
 
-def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title):
-    mod_data = data[[label_column_name, x_column_name, y_column_name]]
+def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0):
+    
+    if(subplot_amount == 0): 
+        mod_data = data[[label_column_name, x_column_name, y_column_name]]
 
-    plt.figure(figsize=(12, 10), dpi=80)
+        plt.figure(figsize=(12, 10), dpi=80)
 
-    for label in labels:
-        data = mod_data.loc[mod_data[label_column_name] == label]
-        x_axis = data[x_column_name]
-        y_axis = data[y_column_name]
-        plt.plot(x_axis, y_axis)
-        
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.legend(labels)
-    plt.show()
+        for label in labels:
+            data = mod_data.loc[mod_data[label_column_name] == label]
+            x_axis = data[x_column_name]
+            y_axis = data[y_column_name]
+            plt.plot(x_axis, y_axis)
+            
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.legend(labels)
+        plt.show()
+    
+    else:
+        for subplot in range(subplot_amount):
+            tmp_data = data
 
+            mod_data = tmp_data[[label_column_name[subplot], x_column_name[subplot], y_column_name[subplot]]].copy(deep=True)
 
-def plot_data2(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0):
-    mod_data = data[[label_column_name, x_column_name, y_column_name]]
+            plt.figure(figsize=(18, 16))
 
-    plt.figure(figsize=(12, 10), dpi=80)
+            plt.subplot(subplot_amount, 1, subplot+1)
+            for label in labels:
+                tmp_data = mod_data.loc[mod_data[label_column_name[subplot]] == label]
+                x_axis = tmp_data[x_column_name[subplot]]
+                y_axis = tmp_data[y_column_name[subplot]]
+                plt.plot(x_axis, y_axis)
 
-    for label in labels:
-        data = mod_data.loc[mod_data[label_column_name] == label]
-        x_axis = data[x_column_name]
-        y_axis = data[y_column_name]
-        plt.plot(x_axis, y_axis)
-        
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.legend(labels)
-    plt.show()
+            plt.title(title[subplot])
+            plt.xlabel(xlabel[subplot])
+            plt.ylabel(ylabel[subplot])
+            plt.legend(labels)
+
+        plt.show()
