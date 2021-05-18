@@ -41,7 +41,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
 
             mod_data = tmp_data[[label_column_name[subplot], x_column_name[subplot], y_column_name[subplot]]].copy(deep=True)
 
-            plt.figure(figsize=(18, 16))
+            plt.figure(figsize=(16, 30))
 
             plt.subplot(subplot_amount, 1, subplot+1)
             for label in labels:
