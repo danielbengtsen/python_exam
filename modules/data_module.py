@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
     """
@@ -13,3 +14,38 @@ def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
         data.to_csv(save_path)
         
     return data
+
+def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title):
+    mod_data = data[[label_column_name, x_column_name, y_column_name]]
+
+    plt.figure(figsize=(12, 10), dpi=80)
+
+    for label in labels:
+        data = mod_data.loc[mod_data[label_column_name] == label]
+        x_axis = data[x_column_name]
+        y_axis = data[y_column_name]
+        plt.plot(x_axis, y_axis)
+        
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend(labels)
+    plt.show()
+
+
+def plot_data2(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0):
+    mod_data = data[[label_column_name, x_column_name, y_column_name]]
+
+    plt.figure(figsize=(12, 10), dpi=80)
+
+    for label in labels:
+        data = mod_data.loc[mod_data[label_column_name] == label]
+        x_axis = data[x_column_name]
+        y_axis = data[y_column_name]
+        plt.plot(x_axis, y_axis)
+        
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend(labels)
+    plt.show()
