@@ -21,7 +21,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
     if(subplot_amount == 0): 
         mod_data = data[[label_column_name, x_column_name, y_column_name]]
 
-        plt.figure(figsize=(12, 10), dpi=80)
+        plt.figure(figsize=(16, 10))
 
         for label in labels:
             data = mod_data.loc[mod_data[label_column_name] == label]
@@ -41,7 +41,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
 
             mod_data = tmp_data[[label_column_name[subplot], x_column_name[subplot], y_column_name[subplot]]].copy(deep=True)
 
-            plt.figure(figsize=(16, 30))
+            plt.figure(figsize=(16, (10*subplot_amount)))
 
             plt.subplot(subplot_amount, 1, subplot+1)
             for label in labels:
