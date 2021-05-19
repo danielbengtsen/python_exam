@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.figure as Figure
+import numpy as np
 
 def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
     """
@@ -34,7 +34,6 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
         plt.ylabel(ylabel)
         plt.legend(labels)
         plt.show()
-    
     else:
         for subplot in range(subplot_amount):
             tmp_data = data
@@ -55,4 +54,28 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
             plt.ylabel(ylabel[subplot])
             plt.legend(labels)
 
+        plt.show()
+
+
+def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0):
+    if(subplot_amount == 0): 
+        mod_data = data[[label_column_name, x_column_name, y_column_name]]
+
+        plt.figure(figsize=[16, 10])
+        b_width = 0.1
+        move_width = 0
+
+        for label in labels:
+            data = mod_data.loc[mod_data[label_column_name] == label]
+            y_axis = data[y_column_name]
+            length = len(y_axis)
+            X = np.arange(length)
+            plt.bar(X + move_width, y_axis, width=b_width, align='center')
+            #plt.xticks(X + move_width, data[x_column_name], rotation=65)
+            move_width += b_width
+            
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.legend(labels)
         plt.show()
