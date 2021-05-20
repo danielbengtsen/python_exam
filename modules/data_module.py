@@ -17,19 +17,22 @@ def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
         
     return data
 
-def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0):
+def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0, y_range=[]):
     
     if(subplot_amount == 0): 
         mod_data = data[[label_column_name, x_column_name, y_column_name]]
 
-        plt.figure(figsize=(16, 10))
+        plt.figure(figsize=(20, 10))
 
         for label in labels:
             data = mod_data.loc[mod_data[label_column_name] == label]
             x_axis = data[x_column_name]
             y_axis = data[y_column_name]
             plt.plot(x_axis, y_axis)
-            
+
+        if(len(y_range) == 2):
+                x1,x2,y1,y2 = plt.axis()  
+                plt.axis((x1,x2,y_range[0],y_range[1]))    
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
@@ -41,7 +44,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
 
             mod_data = tmp_data[[label_column_name[subplot], x_column_name[subplot], y_column_name[subplot]]].copy(deep=True)
 
-            plt.figure(figsize=(16, (10*subplot_amount)))
+            plt.figure(figsize=(20, (10*subplot_amount)))
 
             plt.subplot(subplot_amount, 1, subplot+1)
             for label in labels:
@@ -50,6 +53,9 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
                 y_axis = tmp_data[y_column_name[subplot]]
                 plt.plot(x_axis, y_axis)
 
+            if(len(y_range) == 2):
+                x1,x2,y1,y2 = plt.axis()  
+                plt.axis((x1,x2,y_range[0],y_range[1]))
             plt.title(title[subplot])
             plt.xlabel(xlabel[subplot])
             plt.ylabel(ylabel[subplot])
@@ -58,7 +64,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
         plt.show()
 
 
-def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0):
+def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0, y_range=[]):
     colour_arr = ["silver", "peru", "darkorange", "springgreen", "lightseagreen", "darkorchid", "fuchsia", "navy"]
 
     if(subplot_amount == 0):
@@ -66,7 +72,7 @@ def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylab
 
         loop_count = 0
 
-        plt.figure(figsize=[16, 10])
+        plt.figure(figsize=[20, 10])
         b_width = 0.1
         move_width = 0
         move_up = b_width
@@ -85,7 +91,10 @@ def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylab
             plt.xticks(X+center_x, x_axis, rotation=65)
             move_width += move_up
             loop_count += 1
-            
+
+        if(len(y_range) == 2):
+            x1,x2,y1,y2 = plt.axis()  
+            plt.axis((x1,x2,y_range[0],y_range[1]))    
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
@@ -97,7 +106,7 @@ def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylab
             
             mod_data = data[[label_column_name[subplot], x_column_name[subplot], y_column_name[subplot]]].copy(deep=True)
 
-            plt.figure(figsize=[16, (10*subplot_amount)])
+            plt.figure(figsize=[20, (10*subplot_amount)])
             b_width = 0.1
             move_width = 0
             move_up = b_width
@@ -120,7 +129,10 @@ def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylab
                 plt.xticks(X+center_x, x_axis, rotation=65)
                 move_width += move_up
                 loop_count += 1
-                
+
+            if(len(y_range) == 2):
+                x1,x2,y1,y2 = plt.axis()  
+                plt.axis((x1,x2,y_range[0],y_range[1]))    
             plt.title(title[subplot])
             plt.xlabel(xlabel[subplot])
             plt.ylabel(ylabel[subplot])
@@ -148,3 +160,6 @@ def sort_labels_by_data(labels, data, sort_x, sort_y, sort_label):
     return label_array
 
         
+def create_percentage_column(data, p_of_column, p_total_column):
+    new_data = (data[p_of_column] / data[p_total_column])*100
+    return new_data
