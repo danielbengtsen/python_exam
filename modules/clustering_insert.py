@@ -18,9 +18,9 @@ def addClusterGroupToDataSet(meanshift_data_scaled, labels):
         meanshift_data_scaled.iloc[i,meanshift_data_scaled.columns.get_loc('cluster_group')] = labels[i]
     return meanshift_data_scaled
 
-def makeAnalyzer(meanshift_data_scaled):
+def makeAnalyzer(meanshift_data_scaled, calculated_bandwidth):
     #We found the bandwith using the estimate_bandiwth function mentioned in below cell.
-    analyzer = MeanShift(bandwidth=1.45) #We will provide only bandwith in hyperparameter . The smaller values of bandwith result in tall
+    analyzer = MeanShift(bandwidth=calculated_bandwidth) #We will provide only bandwith in hyperparameter . The smaller values of bandwith result in tall
     #skinny kernels & larger values result in short fat kernels.
     analyzer.fit(meanshift_data_scaled)
     return analyzer
