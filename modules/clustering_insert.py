@@ -37,3 +37,11 @@ def calculateAmountOfClusters(analyzer):
     labels_unique = np.unique(labels_data)
     n_clusters = len(labels_unique)
     print('Number of estimated clusters : {}'.format(n_clusters))
+    
+def createGrouping(scaled_chosen_dataset):
+    #Grouping entries by Cluster
+    meanshift_data_scaled_clusters = scaled_chosen_dataset.copy()
+    meanshift_data_scaled_clusters = scaled_chosen_dataset.groupby(['cluster_group']).mean()
+    #Count of entries in each cluster
+    meanshift_data_scaled_clusters['Counts'] = pd.Series(scaled_chosen_dataset.groupby(['cluster_group']).size())
+    return meanshift_data_scaled_clusters
