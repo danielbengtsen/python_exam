@@ -17,7 +17,7 @@ def retrieve_data(data_link_or_path, save_to_file=False, save_path=""):
         
     return data
 
-def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0, y_range=[]):
+def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, suptitle, subplot_amount=0, y_range=[]):
     
     if(subplot_amount == 0): 
         mod_data = data[[label_column_name, x_column_name, y_column_name]]
@@ -33,7 +33,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
         if(len(y_range) == 2):
                 x1,x2,y1,y2 = plt.axis()  
                 plt.axis((x1,x2,y_range[0],y_range[1]))    
-        plt.title(title)
+        plt.title(suptitle[0] + "\n\n" + title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.legend(labels)
@@ -56,7 +56,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
             if(len(y_range) == 2):
                 x1,x2,y1,y2 = plt.axis()  
                 plt.axis((x1,x2,y_range[0],y_range[1]))
-            plt.title(title[subplot])
+            plt.title(suptitle[subplot] + "\n\n" + title[subplot])
             plt.xlabel(xlabel[subplot])
             plt.ylabel(ylabel[subplot])
             plt.legend(labels)
@@ -64,7 +64,7 @@ def plot_data(data, label_column_name, x_column_name, y_column_name, xlabel, yla
         plt.show()
 
 
-def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, subplot_amount=0, y_range=[]):
+def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylabel, labels, title, suptitle, subplot_amount=0, y_range=[]):
     colour_arr = ["silver", "peru", "darkorange", "springgreen", "lightseagreen", "darkorchid", "fuchsia", "navy"]
 
     if(subplot_amount == 0):
@@ -95,7 +95,7 @@ def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylab
         if(len(y_range) == 2):
             x1,x2,y1,y2 = plt.axis()  
             plt.axis((x1,x2,y_range[0],y_range[1]))    
-        plt.title(title)
+        plt.title(suptitle[0] + "\n\n" + title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
         plt.legend(labels)
@@ -133,7 +133,7 @@ def bar_data(data, label_column_name, x_column_name, y_column_name, xlabel, ylab
             if(len(y_range) == 2):
                 x1,x2,y1,y2 = plt.axis()  
                 plt.axis((x1,x2,y_range[0],y_range[1]))    
-            plt.title(title[subplot])
+            plt.title(suptitle[subplot] + "\n\n" + title[subplot])
             plt.xlabel(xlabel[subplot])
             plt.ylabel(ylabel[subplot])
             plt.legend(labels)
