@@ -46,4 +46,4 @@ def createModel(xs_reshape, ys):
 def predictByModel(model, xs_reshape, variable_for_predict ):
     predicted = model.predict(xs_reshape)
     predict_number = model.predict([[variable_for_predict]])
-    print('Increasing variabale for prediction to '+ str(variable_for_predict)+ ' results in a total salary of {}'.format(predict_number[0]))
+    print('Increasing variabale for prediction to '+ str(variable_for_predict)+ ' results in a total salary of {}'.format(round(predict_number[0])))
