@@ -24,19 +24,12 @@ def get_xs_reshape(dataset_for_prediction, column_name):
 def get_ys(dataset_for_prediction):
     return dataset_for_prediction['Salaries.Mean']
 
-def createLinearReg(dataset_for_prediction, xs_reshape, ys, column_name):
-    data_set_new = dataset_for_prediction[["Salaries.Mean", "Year", column_name]]
-    data_set_new = dataset_for_prediction.set_index(dataset_for_prediction["Year"])[["Salaries.Mean", column_name]]
-    data_set_new.plot()
-    #print("dataset-new",data_set_new)
-    
-    # Reshape data for X
-    model = createModel(xs_reshape, ys)
-    model.coef_
-    #data_set_new.plot(x=0,y=1) # x= first column and y=second column in dataframe
-    data_set_new.plot.scatter(x = 0, y = 1)
-    plt.plot([data_set_new['Demographics.Total'].min(), data_set_new['Demographics.Total'].max()], [data_set_new['Salaries.Mean'].min(), data_set_new['Salaries.Mean'].max()])
-    #
+def createLinearReg(data):
+    data.plot()
+
+    data.plot.scatter(x = 0, y = 1)
+
+    plt.plot([data['Demographics.Total'].min(), data['Demographics.Total'].max()], [data['Salaries.Mean'].min(),          data['Salaries.Mean'].max()])
     
 def createModel(xs_reshape, ys):
     model = sklearn.linear_model.LinearRegression()
