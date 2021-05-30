@@ -21,6 +21,6 @@ The problem descriped above has been answered.
 ## List of challenges:
 We have challenged ourselves with:
 - Writing our own data module with functions to draw plots and sort in them.
-- Clustering of our data.
-- Prediction based on our data.
+- Clustering of our samples from our data.
+- Prediction based on our selected features in our dataset.
 
